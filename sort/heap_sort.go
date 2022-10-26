@@ -1,23 +1,22 @@
 package sort
 
+import "github.com/vitornilson/all-go-rithms/model"
 
-type Heap struct {
-	HeapSize int
-	List     []int
-}
 
-func HeapSort(heap *Heap) {
+
+func HeapSort(heap model.Heap) {
 
 	BuildMaxHeap(heap)
 
-	for i := len(heap.List) - 1; i >= 1; i-- {
-		firstValue := heap.List[0]
-		indexValue := heap.List[i]
+	for i := len(heap.List()) - 1; i >= 1; i-- {
 
-		heap.List[i] = firstValue
-		heap.List[0] = indexValue
+		firstValue := heap.List()[0]
+		indexValue := heap.List()[i]
 
-		heap.HeapSize -= 1
+		heap.List()[i] = firstValue
+		heap.List()[0] = indexValue
+
+		heap.SetSize(heap.Size() - 1)
 
 		MaxHeapify(heap, 0)
 
@@ -25,43 +24,43 @@ func HeapSort(heap *Heap) {
 
 }
 
-func BuildMaxHeap(heap *Heap) {
-	heap.HeapSize = len(heap.List) - 1
+func BuildMaxHeap(heap model.Heap) {
+	heap.SetSize(len(heap.List()) - 1)
 
-	mid := (heap.HeapSize / 2)
+	mid := (heap.Size() / 2)
 	for i := mid; i >= 0; i-- {
 		MaxHeapify(heap, i)
 	}
 
 }
 
-func MaxHeapify(heap *Heap, index int) {
+func MaxHeapify(heap model.Heap, index int) {
 	left := Left(index)
 	right := Right(index)
 	
-	leftSmallerThanHeapSize := left <= heap.HeapSize
-	rightSmallerThanHeapSize := right <= heap.HeapSize
+	leftSmallerThanSize := left <= heap.Size()
+	rightSmallerThanSize := right <= heap.Size()
 
 
 	var largest int
 
-	if leftSmallerThanHeapSize && heap.List[left] > heap.List[index] {
+	if leftSmallerThanSize && heap.List()[left] > heap.List()[index] {
 		largest = left
 	} else {
 		largest = index
 	}
 
-	if rightSmallerThanHeapSize && heap.List[right] > heap.List[largest] {
+	if rightSmallerThanSize && heap.List()[right] > heap.List()[largest] {
 		largest = right
 	}
 
 	if largest != index {
 
-		indexValue := heap.List[index]
-		largestValue := heap.List[largest]
+		indexValue := heap.List()[index]
+		largestValue := heap.List()[largest]
 
-		heap.List[index] = largestValue
-		heap.List[largest] = indexValue
+		heap.List()[index] = largestValue
+		heap.List()[largest] = indexValue
 		MaxHeapify(heap, largest)
 	}
 
