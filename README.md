@@ -2,7 +2,7 @@
 
 AllGoRithms is a Golang project where I am putting into practice all my Algorithm studies.
 
-It seems like a lot of people are enjoying this project as I have at least 100 clones a day since I started adding new algorithms.
+It seems like a lot of people are enjoying this project as I have at least 100 clones per day since I started adding new algorithms.
 
 So, I decided to add some information about the project.
 
